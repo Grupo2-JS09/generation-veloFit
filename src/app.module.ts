@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '123456',
+      password: 'root',
       database: 'db_veloFit',
       entities: [Usuario, Servico, Categoria],
       synchronize: true,
