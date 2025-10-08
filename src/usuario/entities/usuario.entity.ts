@@ -19,6 +19,7 @@ export class Usuario {
   @Column({ length: 245, nullable: false, unique: true })
   usuario: string;
 
+  @MinLength(8)
   @IsNotEmpty()
   @Column({ length: 255, nullable: false })
   senha: string;
