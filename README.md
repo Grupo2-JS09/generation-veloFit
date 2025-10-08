@@ -1,4 +1,5 @@
-<img width="720" height="720" alt="Modern SB letter Logo Instagram Post" src="https://github.com/user-attachments/assets/f6a59eaa-0828-44f4-8b89-72df2c0d8b2a" />
+<img width="720" height="720" alt="ChatGPT Image 8 de out  de 2025, 09_16_55" src="https://github.com/user-attachments/assets/8b37d9d8-9291-4122-9bde-97e1b84dee8c" />
+
 
 # VeloFit - Delivery de Comidas Saudáveis 🥗
 
