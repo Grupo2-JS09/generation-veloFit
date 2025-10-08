@@ -24,16 +24,17 @@ export class ServicoService {
       where: {
         id,
       },
+
       relations: {
         usuario: true,
         categoria: true,
       },
     });
-    if (!servico) {
+
+    if (!servico)
       throw new HttpException('serviço não encontrado', HttpStatus.NOT_FOUND);
 
-      return servico;
-    }
+    return servico;
   }
 
   async findAllByModalidade(modalidade: string): Promise<Servico[]> {
