@@ -2,14 +2,12 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Servico } from '../entities/servico.entity';
 import { DeleteResult, ILike, Repository } from 'typeorm';
-import { Categoria } from '../../categoria/entities/categoria.entity';
 
 @Injectable()
 export class ServicoService {
   constructor(
     @InjectRepository(Servico)
     private servicoRepository: Repository<Servico>,
-    private categoriaRepository: Repository<Categoria>,
   ) {}
 
   async findAll(): Promise<Servico[]> {
@@ -52,6 +50,14 @@ export class ServicoService {
   }
 
   async create(servico: Servico): Promise<Servico> {
+    const categoria = servico.categoria.id;
+
+    if (categoria === 1) {
+      servico.valor_mensalidade = 100;
+    } else {
+      servico.valor_mensalidade = 120;
+    }
+
     return await this.servicoRepository.save(servico);
   }
 
@@ -65,41 +71,14 @@ export class ServicoService {
     return await this.servicoRepository.delete(id);
   }
 
-  // async mensalidadePorCategoria(id: number): Promise<number> {
-  //   const CategoriaId = await this.categoriaRepository.findOne({
-  //     where: {
-  //       id,
-  //     },
-  //   });
+  async descontoMensalidadePorFrequencia(id: number): Promise<number> {
+    const servico = await this.findById(id);
+    const diasDesconto = 7 - servico.frequencia;
 
-  //   if (!CategoriaId)
-  //     throw new HttpException('Serviço não encontrado!', HttpStatus.NOT_FOUND);
+    const taxaDesconto =
+      servico.valor_mensalidade -
+      servico.valor_mensalidade * (diasDesconto * 0.02);
 
-  // primeiro serviço, verificar se você tem categoriaID == monstro ou frango, se for monstro, valor_mensalidade === 120 : valor_menslaidade === 100
-  // QUando eu fizer a lógica, que o valor_mensalidade será preenchido.
-
-  //   CategoriaId === 1 ? mensalidade =
-
-  // }
-
-  // async descontoMensalidadePorFrequencia(id: number): Promise<number> {
-  //   const servico = await this.servicoRepository.findOne({
-  //     where: {
-  //       id,
-  //     },
-  //     relations: {
-  //       usuario: true,
-  //       categoria: true,
-  //     },
-  //   });
-
-  //   if (!servico)
-  //     throw new HttpException('Serviço não encontrado!', HttpStatus.NOT_FOUND);
-
-  // Checar o valor_mensalidade = 2% * {8%}(7 - frequencia) [Se a frequencia for 3, então eu tenho 4 dias de desconto]
-  // Se ele for monstro, mensalidade fixa é de 120. Porém agora ele tem 8% de desconto pelos dias de NÃO FREQUENCIA.
-  // mensalidade_final = 120 - 8% = 110,40
-
-  //   // return mensalidade_final;
-  // }
+    return taxaDesconto;
+  }
 }

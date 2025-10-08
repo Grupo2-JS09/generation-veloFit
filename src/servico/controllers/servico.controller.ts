@@ -40,21 +40,11 @@ export class ServicoController {
     return this.servicoService.findAllByModalidade(modalidade);
   }
 
-  // @Get('/viagem/:id')
-  // @HttpCode(HttpStatus.OK)
-  // CalcularDestino(
-  //     @Param('id', ParseIntPipe) id: number,
-  // ): Promise<Servico | number> {
-  //     return this.servicoService.calcularViagem(id);
-  // }
-
-  // @Get('/viagem/tempo/:id')
-  // @HttpCode(HttpStatus.OK)
-  // CalcularTempo(
-  //     @Param('id', ParseIntPipe) id: number,
-  // ): Promise<Servico | number> {
-  //     return this.servicoService.calcularTempo(id);
-  // }
+  @Get('/calculo_mensalidade/:id')
+  @HttpCode(HttpStatus.OK)
+  CalcularMensalidade(@Param('id', ParseIntPipe) id: number): Promise<number> {
+    return this.servicoService.descontoMensalidadePorFrequencia(id);
+  }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)

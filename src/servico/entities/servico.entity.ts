@@ -9,7 +9,6 @@ export class Servico {
   id: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-  @IsNotEmpty()
   valor_mensalidade: number;
 
   @Column({ nullable: false })
