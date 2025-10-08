@@ -1,4 +1,4 @@
-<img width="1080" height="1080" alt="Modern SB letter Logo Instagram Post" src="https://github.com/user-attachments/assets/f6a59eaa-0828-44f4-8b89-72df2c0d8b2a" />
+<img width="720" height="720" alt="Modern SB letter Logo Instagram Post" src="https://github.com/user-attachments/assets/f6a59eaa-0828-44f4-8b89-72df2c0d8b2a" />
 
 # VeloFit - Delivery de Comidas Saudáveis 🥗
 
