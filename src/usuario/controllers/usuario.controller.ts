@@ -12,7 +12,6 @@ import { Usuario } from '../entities/usuario.entity';
 import { HttpStatus, Param, ParseIntPipe } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
 @Controller('/usuarios')
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}

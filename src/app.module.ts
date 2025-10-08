@@ -19,7 +19,7 @@ import { AuthModule } from './auth/auth.module';
       database: 'db_veloFit',
       entities: [Usuario, Servico, Categoria],
       synchronize: true,
-      logging: true,
+      //logging: true,
     }),
     UsuarioModule,
     ServicoModule,
