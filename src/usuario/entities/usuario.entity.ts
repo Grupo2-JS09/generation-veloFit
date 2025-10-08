@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 import { Servico } from './../../servico/entities/servico.entity';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
@@ -24,6 +24,6 @@ export class Usuario {
   @Column({ length: 255, nullable: false })
   senha: string;
 
-  // @OneToMany(() => Servico, (servico) => servico.usuario)
-  // servicos: Servico[];
+  @OneToMany(() => Servico, (servico) => servico.usuario)
+  servicos: Servico[];
 }
