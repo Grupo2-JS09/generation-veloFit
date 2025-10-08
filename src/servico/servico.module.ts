@@ -5,9 +5,9 @@ import { ServicoService } from './services/servico.service';
 import { ServicoController } from './controllers/servico.controller';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Servico])],
-    providers: [ServicoService],
-    controllers: [ServicoController],
-    exports: [],
+  imports: [TypeOrmModule.forFeature([Servico])],
+  providers: [ServicoService],
+  controllers: [ServicoController],
+  exports: [],
 })
-export class ServicoModule { }
+export class ServicoModule {}
