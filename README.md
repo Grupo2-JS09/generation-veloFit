@@ -1,5 +1,4 @@
-<img width="1536" height="1024" alt="ChatGPT Image 8 de out  de 2025, 09_16_55" src="https://github.com/user-attachments/assets/a7ef7621-ef1b-48b9-9d57-862915ea4d57" />
-
+<img width="1536" height="1024" alt="ChatGPT Image 8 de out  de 2025, 15_06_45" src="https://github.com/user-attachments/assets/7ba66763-4001-4a49-8142-67d76126858e" />
 
 # VeloFit - Sistema de Gerenciamento de Academia
 
