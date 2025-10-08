@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { Servico } from './../../servico/entities/servico.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'tb_categorias' })
