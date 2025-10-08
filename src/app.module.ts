@@ -1,13 +1,12 @@
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Usuario } from './usuario/entities/usuario.entity';
-import { UsuarioModule } from './usuario/usuario.module';
+import { AuthModule } from './auth/auth.module';
+import { CategoriaModule } from './categoria/categoria.module';
+import { Categoria } from './categoria/entities/categoria.entity';
 import { Servico } from './servico/entities/servico.entity';
 import { ServicoModule } from './servico/servico.module';
-import { Module } from '@nestjs/common';
-import { Categoria } from './categoria/entities/categoria.entity';
-import { CategoriaModule } from './categoria/categoria.module';
-import { AuthModule } from './auth/auth.module';
-
+import { Usuario } from './usuario/entities/usuario.entity';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -17,9 +16,9 @@ import { AuthModule } from './auth/auth.module';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'db_veloFood',
+      database: 'db_veloFit',
       entities: [Usuario, Servico, Categoria],
-      synchronize: false,
+      synchronize: true,
       logging: true,
     }),
     UsuarioModule,
