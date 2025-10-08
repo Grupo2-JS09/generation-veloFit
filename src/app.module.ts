@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriaModule } from './categoria/categoria.module';
-import { Categoria } from './categoria/entities/categoria.entity';
-import { Servico } from './servico/entities/servico.entity';
 import { ServicoModule } from './servico/servico.module';
-import { Usuario } from './usuario/entities/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -17,8 +16,8 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: 'root',
       database: 'db_veloFit',
-      entities: [Usuario, Servico, Categoria],
-      synchronize: true,
+      autoLoadEntities: true,
+      synchronize: false,
       //logging: true,
     }),
     UsuarioModule,
@@ -26,7 +25,7 @@ import { AuthModule } from './auth/auth.module';
     CategoriaModule,
     AuthModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -1,14 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import * as request from 'supertest';
-import { App } from 'supertest/types';
+import request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 describe('Testes dos módulos Usuario e Auth (e2e)', () => {
   let token: any;
   let usuarioId: any;
-  let app: INestApplication<App>;
+  let app: INestApplication;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -16,7 +15,7 @@ describe('Testes dos módulos Usuario e Auth (e2e)', () => {
         TypeOrmModule.forRoot({
           type: 'sqlite',
           database: ':memory:',
-          entities: [__dirname + './../src/**/entities/*.entity.ts'],
+          autoLoadEntities: true,
           synchronize: true,
           dropSchema: true,
         }),
@@ -94,4 +93,6 @@ describe('Testes dos módulos Usuario e Auth (e2e)', () => {
         expect('Root Atualizado').toEqual(resposta.body.nome);
       });
   });
+
+  // it('06 - ');
 });

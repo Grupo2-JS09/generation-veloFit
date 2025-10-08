@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Usuario } from '../entities/usuario.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { Bcrypt } from 'src/auth/bcrypt/bcrypt';
+import { Bcrypt } from '../../auth/bcrypt/bcrypt';
 
 @Injectable()
 export class UsuarioService {
