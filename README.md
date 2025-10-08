@@ -3,10 +3,6 @@
 # VeloFit - Delivery de Comidas Saudáveis 🥗
 
 <p align="center">
-  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
-</p>
-
-<p align="center">
   <strong>Sistema de delivery focado em alimentação saudável e bem-estar</strong>
 </p>
 
