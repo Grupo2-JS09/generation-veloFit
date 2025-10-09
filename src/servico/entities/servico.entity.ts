@@ -10,11 +10,7 @@ export class Servico {
   id: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
-<<<<<<< HEAD
-=======
-  @IsNotEmpty()
   @ApiProperty()
->>>>>>> 6259bf3e2cd205245b8a5f198b4fdcb76fe270a4
   valor_mensalidade: number;
 
   @Column({ nullable: false })
