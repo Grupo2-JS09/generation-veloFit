@@ -1,178 +1,195 @@
-<img width="1536" height="1024" alt="ChatGPT Image 8 de out  de 2025, 15_06_45" src="https://github.com/user-attachments/assets/7ba66763-4001-4a49-8142-67d76126858e" />
+<img width="1536" height="1024" alt="Logo VeloFit" src="https://github.com/user-attachments/assets/158a8a7b-80ec-45c4-832e-b0f79c6e1bff" />
 
-# VeloFit - Sistema de Gerenciamento de Academia
 
-<p align="center">
-  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
-</p>
+# 🏋️‍♂️ VeloFit - Sistema de Gerenciamento de Academia
 
 ## 📋 Sobre o Projeto
 
-VeloFit é uma API REST desenvolvida com NestJS para gerenciamento completo de academias, permitindo o controle de usuários, serviços oferecidos e categorias de atividades físicas.
+**VeloFit** é uma API REST desenvolvida com **NestJS**, **TypeORM** e **PostgreSQL**, projetada para o gerenciamento completo de academias.  
+O sistema permite o controle de **usuários**, **categorias**, **serviços/planos** e inclui um **método inteligente de cálculo de mensalidade**, além de autenticação segura com **JWT**.
+
+---
 
 ## 🚀 Tecnologias Utilizadas
 
-- **[NestJS](https://nestjs.com/)** - Framework Node.js progressivo
-- **[TypeScript](https://www.typescriptlang.org/)** - Superset JavaScript com tipagem estática
-- **[TypeORM](https://typeorm.io/)** - ORM para TypeScript e JavaScript
-- **[MySQL](https://www.mysql.com/)** - Sistema de gerenciamento de banco de dados
-- **[Class Validator](https://github.com/typestack/class-validator)** - Validação de dados
+- **NestJS** - Framework Node.js progressivo
+- **TypeScript** - Superset do JavaScript com tipagem estática
+- **TypeORM** - ORM para TypeScript e JavaScript
+- **PostgreSQL** - Banco de dados hospedado no **Render**
+- **JWT (JSON Web Token)** - Autenticação e autorização
+- **Bcrypt** - Criptografia de senhas
+- **Passport** - Middleware de autenticação
+- **ESLint** - Linter para manter a qualidade e o padrão de código
 
-## 🏗️ Arquitetura do Sistema
+---
 
-O projeto segue a arquitetura modular do NestJS, dividido em:
+## 🔐 Autenticação JWT
 
-### Módulos Principais
+O sistema utiliza **JWT (JSON Web Token)** para autenticação stateless, garantindo segurança e controle de acesso.
 
-- **Usuario** - Gerenciamento de usuários cadastrados
-- **Servico** - Controle de serviços/planos oferecidos
-- **Categoria** - Categorização dos serviços
-- **Auth** - Autenticação e autorização
+### Fluxo de Autenticação
 
-### Estrutura de Entidades
+1. O usuário se cadastra com senha criptografada.
+2. Faz login e recebe um token JWT.
+3. Envia o token no header de cada requisição protegida.
+4. O sistema valida o token antes de liberar o acesso.
 
-#### Usuario
-- ID (gerado automaticamente)
-- Nome
-- Foto
-- Email (usuário - único)
-- Senha (mínimo 8 caracteres)
-- Relacionamento: 1:N com Serviços
+### Exemplo de Token
 
-#### Categoria
-- ID (gerado automaticamente)
-- Nome da Categoria
-- Relacionamento: 1:N com Serviços
-
-#### Servico
-- ID (gerado automaticamente)
-- Valor da Mensalidade
-- Frequência
-- Data de Matrícula
-- Modalidade
-- Relacionamentos: N:1 com Usuario e Categoria
-
-## 🔧 Configuração do Ambiente
-
-### Pré-requisitos
-
-- Node.js (versão 14 ou superior)
-- npm ou yarn
-- MySQL Server
-
-### Instalação
-
-1. Clone o repositório:
-```bash
-git clone [url-do-repositorio]
-cd velofit
+```json
+{
+  "id": 1,
+  "nome": "João Silva",
+  "usuario": "joao@email.com",
+  "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
 ```
 
-2. Instale as dependências:
-```bash
-npm install
+---
+
+## 💰 Cálculo de Mensalidade (Interno do VeloFit)
+
+O **VeloFit** possui um sistema interno de cálculo automático da mensalidade com base na **categoria** e na **frequência semanal de treinos** do aluno.
+
+### Fórmula
+
+```
+valor_final = valor_base - (valor_base × ((7 - frequência_semanal) × 0.02))
 ```
 
-3. Configure o banco de dados:
-   - Crie um banco de dados MySQL chamado `db_veloFit`
-   - Ajuste as credenciais em `src/app.module.ts`:
-```typescript
-TypeOrmModule.forRoot({
-  type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',      // Seu usuário
-  password: 'root',      // Sua senha
-  database: 'db_veloFit',
-  // ...
-})
+### Categorias e Valores Base
+
+| Categoria ID | Tipo    | Valor Base |
+| ------------ | ------- | ---------- |
+| 1            | Básico  | R$ 100,00  |
+| 2+           | Premium | R$ 120,00  |
+
+### Exemplo de Cálculo
+
+- Categoria: Básico (R$ 100,00)
+- Frequência: 4x por semana
+- Desconto: (7 - 4) × 2% = 6%
+- **Valor final:** R$ 94,00
+
+### Endpoint
+
+```http
+GET /servicos/calculo_mensalidade/:id
+Authorization: Bearer {seu-token-jwt}
 ```
 
-## 🎮 Executando a Aplicação
+**Resposta:**
 
-### Modo Desenvolvimento
-```bash
-npm run start:dev
+```json
+{
+  "valor_mensalidade": 94.0,
+  "frequencia": 4,
+  "categoria": "Básico"
+}
 ```
 
-### Modo Produção
-```bash
-npm run start:prod
-```
+---
 
-A aplicação estará disponível em: `http://localhost:4000`
+## 🗄️ Estrutura do Banco de Dados (DER)
 
-## 📡 Endpoints da API
+## ☁️ Deploy no Render
 
-### Usuários
-- `GET /usuarios` - Lista todos os usuários
-- `GET /usuarios/:id` - Busca usuário por ID
-- `GET /usuarios/nome/:nome` - Busca usuários por nome
-- `POST /usuarios` - Cria novo usuário
-- `PUT /usuarios` - Atualiza usuário
+O **Render** é usado para hospedar tanto o **banco de dados PostgreSQL** quanto o **serviço web da API**.
 
-### Categorias
-- `GET /categorias` - Lista todas as categorias
-- `GET /categorias/:id` - Busca categoria por ID
-- `GET /categorias/nome/:nome` - Busca categorias por nome
-- `POST /categorias` - Cria nova categoria
-- `PUT /categorias/atualizar` - Atualiza categoria
-- `DELETE /categorias/:id` - Remove categoria
+### Configuração do Render
 
-### Serviços
-- `GET /servicos` - Lista todos os serviços
-- `GET /servicos/:id` - Busca serviço por ID
-- `GET /servicos/modalidade/:modalidade` - Busca por modalidade
-- `POST /servicos` - Cria novo serviço
-- `PUT /servicos` - Atualiza serviço
-- `DELETE /servicos/:id` - Remove serviço
+1. Crie um novo banco PostgreSQL:
+
+   - **Name:** `velofit-db`
+   - **Plan:** Free (para testes) ou Starter (produção)
+
+2. Configure o serviço web:
+
+   ```yaml
+   databases:
+     - name: velofit-db
+       plan: free
+       databaseName: db_velofit
+       user: velofit_user
+
+   services:
+     - type: web
+       name: velofit-api
+       env: node
+       plan: free
+       buildCommand: npm install && npm run build
+       startCommand: npm run start:prod
+       envVars:
+         - key: DATABASE_URL
+           fromDatabase:
+             name: velofit-db
+             property: connectionString
+         - key: JWT_SECRET
+           generateValue: true
+         - key: PORT
+           value: 4000
+   ```
+
+3. Variáveis de ambiente:
+
+   ```env
+   DATABASE_URL=postgresql://user:password@hostname/database
+   JWT_SECRET=sua-chave-secreta
+   NODE_ENV=production
+   PORT=4000
+   ```
+
+4. Acesse a documentação após o deploy:
+   ```
+   https://velofit-api.onrender.com/swagger
+   ```
+
+---
 
 ## 🧪 Testes
 
 ```bash
-# Testes unitários
-npm run test
-
-# Testes e2e
 npm run test:e2e
-
-# Cobertura de testes
-npm run test:cov
 ```
-
-## 🔒 Recursos de Segurança
-
-- Validação de dados com Class Validator
-- CORS habilitado
-- Validação de email único
-- Senhas com requisito mínimo de 8 caracteres
-- Timezone configurado para UTC-3 (Brasil)
-
-## 📦 Deploy
-
-Para deploy em produção, recomenda-se:
-
-1. Configurar variáveis de ambiente
-2. Usar ferramenta de gerenciamento de processos (PM2)
-3. Configurar proxy reverso (Nginx)
-4. Implementar HTTPS
-
-## 📚 Recursos Adicionais
-
-- [Documentação NestJS](https://docs.nestjs.com)
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT.
-
-## 👥 Contato
-
-Para dúvidas e suporte, entre em contato através dos canais oficiais do projeto.
 
 ---
 
-Desenvolvido com ❤️ usando NestJS
+## 📦 Scripts Disponíveis
+
+```bash
+# Executar em modo de desenvolvimento
+npm run start:dev
+
+# Executar em produção
+npm run start:prod
+
+# Testes end-to-end
+npm run test:e2e
+```
+
+---
+
+## 🔧 Estrutura do Projeto
+
+```
+src/
+├── auth/                # Autenticação JWT
+├── categoria/           # CRUD de categorias
+├── servico/             # CRUD de serviços + cálculo de mensalidade
+├── usuario/             # CRUD de usuários
+├── data/                # Configuração de banco de dados
+├── app.module.ts        # Módulo principal
+└── main.ts              # Inicialização da aplicação
+```
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença **MIT**.
+
+---
+
+**VeloFit Brasil**  
+📧 grupo_02-turma-javascript_09@outlook.com  
+Desenvolvido com ❤️ usando **NestJS**
