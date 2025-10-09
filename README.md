@@ -25,14 +25,13 @@ O sistema permite o controle de **usuários**, **categorias**, **serviços/plano
 
 ## 🔐 Autenticação JWT
 
-O sistema utiliza **JWT (JSON Web Token)** para autenticação stateless, garantindo segurança e controle de acesso.
+- Cadastro do Usuário: Durante o registro, a senha fornecida pelo usuário é criptografada utilizando o algoritmo BCrypt antes de ser armazenada no banco de dados.
 
-### Fluxo de Autenticação
+- Login e Geração do Token: Após as credenciais serem validadas (compara-se a senha fornecida com o hash armazenado usando BCrypt), o sistema gera um token JWT contendo informações do usuário e o retorna como resposta.
 
-1. O usuário se cadastra com senha criptografada.
-2. Faz login e recebe um token JWT.
-3. Envia o token no header de cada requisição protegida.
-4. O sistema valida o token antes de liberar o acesso.
+- Acesso a Recursos Protegidos: Para requisitar endpoints protegidos (como atualização de dados ou consulta de academias), o cliente deve enviar o token JWT no cabeçalho Authorization das requisições, geralmente no formato Bearer <token>.
+
+- Validação do Token: Em cada requisição autenticada, o sistema verifica a validade do token JWT — incluindo sua autenticidade, integridade e data de expiração — antes de autorizar o acesso ao recurso solicitado.
 
 ### Exemplo de Token
 
@@ -103,7 +102,11 @@ O **Render** é usado para hospedar tanto o **banco de dados PostgreSQL** quanto
    - **Name:** `velofit-db`
    - **Plan:** Free (para testes) ou Starter (produção)
 
-2. Configure o serviço web:
+2. DER:
+
+  <img width="807" height="291" alt="der" src="https://github.com/user-attachments/assets/f71c551c-8000-40b3-aad9-c805e9438ca0" />
+
+3. Configure o serviço web:
 
    ```yaml
    databases:
@@ -130,7 +133,7 @@ O **Render** é usado para hospedar tanto o **banco de dados PostgreSQL** quanto
            value: 4000
    ```
 
-3. Variáveis de ambiente:
+4. Variáveis de ambiente:
 
    ```env
    DATABASE_URL=postgresql://user:password@hostname/database
@@ -139,7 +142,7 @@ O **Render** é usado para hospedar tanto o **banco de dados PostgreSQL** quanto
    PORT=4000
    ```
 
-4. Acesse a documentação após o deploy:
+5. Acesse a documentação após o deploy:
    ```
    https://velofit-api.onrender.com/swagger
    ```
@@ -159,9 +162,6 @@ npm run test:e2e
 ```bash
 # Executar em modo de desenvolvimento
 npm run start:dev
-
-# Executar em produção
-npm run start:prod
 
 # Testes end-to-end
 npm run test:e2e
