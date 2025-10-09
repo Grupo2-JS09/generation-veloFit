@@ -1,98 +1,178 @@
+<img width="1536" height="1024" alt="ChatGPT Image 8 de out  de 2025, 15_06_45" src="https://github.com/user-attachments/assets/7ba66763-4001-4a49-8142-67d76126858e" />
+
+# VeloFit - Sistema de Gerenciamento de Academia
+
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📋 Sobre o Projeto
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+VeloFit é uma API REST desenvolvida com NestJS para gerenciamento completo de academias, permitindo o controle de usuários, serviços oferecidos e categorias de atividades físicas.
 
-## Description
+## 🚀 Tecnologias Utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **[NestJS](https://nestjs.com/)** - Framework Node.js progressivo
+- **[TypeScript](https://www.typescriptlang.org/)** - Superset JavaScript com tipagem estática
+- **[TypeORM](https://typeorm.io/)** - ORM para TypeScript e JavaScript
+- **[MySQL](https://www.mysql.com/)** - Sistema de gerenciamento de banco de dados
+- **[Class Validator](https://github.com/typestack/class-validator)** - Validação de dados
 
-## Project setup
+## 🏗️ Arquitetura do Sistema
 
+O projeto segue a arquitetura modular do NestJS, dividido em:
+
+### Módulos Principais
+
+- **Usuario** - Gerenciamento de usuários cadastrados
+- **Servico** - Controle de serviços/planos oferecidos
+- **Categoria** - Categorização dos serviços
+- **Auth** - Autenticação e autorização
+
+### Estrutura de Entidades
+
+#### Usuario
+- ID (gerado automaticamente)
+- Nome
+- Foto
+- Email (usuário - único)
+- Senha (mínimo 8 caracteres)
+- Relacionamento: 1:N com Serviços
+
+#### Categoria
+- ID (gerado automaticamente)
+- Nome da Categoria
+- Relacionamento: 1:N com Serviços
+
+#### Servico
+- ID (gerado automaticamente)
+- Valor da Mensalidade
+- Frequência
+- Data de Matrícula
+- Modalidade
+- Relacionamentos: N:1 com Usuario e Categoria
+
+## 🔧 Configuração do Ambiente
+
+### Pré-requisitos
+
+- Node.js (versão 14 ou superior)
+- npm ou yarn
+- MySQL Server
+
+### Instalação
+
+1. Clone o repositório:
 ```bash
-$ npm install
+git clone [url-do-repositorio]
+cd velofit
 ```
 
-## Compile and run the project
-
+2. Instale as dependências:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+3. Configure o banco de dados:
+   - Crie um banco de dados MySQL chamado `db_veloFit`
+   - Ajuste as credenciais em `src/app.module.ts`:
+```typescript
+TypeOrmModule.forRoot({
+  type: 'mysql',
+  host: 'localhost',
+  port: 3306,
+  username: 'root',      // Seu usuário
+  password: 'root',      // Sua senha
+  database: 'db_veloFit',
+  // ...
+})
 ```
 
-## Deployment
+## 🎮 Executando a Aplicação
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+### Modo Desenvolvimento
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Modo Produção
+```bash
+npm run start:prod
+```
 
-## Resources
+A aplicação estará disponível em: `http://localhost:4000`
 
-Check out a few resources that may come in handy when working with NestJS:
+## 📡 Endpoints da API
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Usuários
+- `GET /usuarios` - Lista todos os usuários
+- `GET /usuarios/:id` - Busca usuário por ID
+- `GET /usuarios/nome/:nome` - Busca usuários por nome
+- `POST /usuarios` - Cria novo usuário
+- `PUT /usuarios` - Atualiza usuário
 
-## Support
+### Categorias
+- `GET /categorias` - Lista todas as categorias
+- `GET /categorias/:id` - Busca categoria por ID
+- `GET /categorias/nome/:nome` - Busca categorias por nome
+- `POST /categorias` - Cria nova categoria
+- `PUT /categorias/atualizar` - Atualiza categoria
+- `DELETE /categorias/:id` - Remove categoria
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Serviços
+- `GET /servicos` - Lista todos os serviços
+- `GET /servicos/:id` - Busca serviço por ID
+- `GET /servicos/modalidade/:modalidade` - Busca por modalidade
+- `POST /servicos` - Cria novo serviço
+- `PUT /servicos` - Atualiza serviço
+- `DELETE /servicos/:id` - Remove serviço
 
-## Stay in touch
+## 🧪 Testes
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+# Testes unitários
+npm run test
 
-## License
+# Testes e2e
+npm run test:e2e
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+# Cobertura de testes
+npm run test:cov
+```
+
+## 🔒 Recursos de Segurança
+
+- Validação de dados com Class Validator
+- CORS habilitado
+- Validação de email único
+- Senhas com requisito mínimo de 8 caracteres
+- Timezone configurado para UTC-3 (Brasil)
+
+## 📦 Deploy
+
+Para deploy em produção, recomenda-se:
+
+1. Configurar variáveis de ambiente
+2. Usar ferramenta de gerenciamento de processos (PM2)
+3. Configurar proxy reverso (Nginx)
+4. Implementar HTTPS
+
+## 📚 Recursos Adicionais
+
+- [Documentação NestJS](https://docs.nestjs.com)
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT.
+
+## 👥 Contato
+
+Para dúvidas e suporte, entre em contato através dos canais oficiais do projeto.
+
+---
+
+Desenvolvido com ❤️ usando NestJS

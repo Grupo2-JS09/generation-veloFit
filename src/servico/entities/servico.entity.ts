@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import { Categoria } from '../../categoria/entities/categoria.entity';
 import { Usuario } from '../../usuario/entities/usuario.entity';
@@ -9,24 +10,34 @@ export class Servico {
   id: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
+<<<<<<< HEAD
+=======
+  @IsNotEmpty()
+  @ApiProperty()
+>>>>>>> 6259bf3e2cd205245b8a5f198b4fdcb76fe270a4
   valor_mensalidade: number;
 
   @Column({ nullable: false })
   @IsNotEmpty()
+  @ApiProperty()
   frequencia: number;
 
   @Column()
   @IsNotEmpty()
+  @ApiProperty()
   dt_matricula: Date;
 
   @Column({ length: 250 })
+  @ApiProperty()
   modalidade: string;
 
+  @ApiProperty({ type: () => Usuario })
   @ManyToOne(() => Usuario, (usuario) => usuario.servicos, {
     onDelete: 'CASCADE',
   })
   usuario: Usuario;
 
+  @ApiProperty({ type: () => Categoria })
   @ManyToOne(() => Categoria, (categoria) => categoria.servico, {
     onDelete: 'CASCADE',
   })
