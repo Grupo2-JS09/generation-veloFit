@@ -1,24 +1,14 @@
-<img width="720" height="720" alt="ChatGPT Image 8 de out  de 2025, 09_16_55" src="https://github.com/user-attachments/assets/8b37d9d8-9291-4122-9bde-97e1b84dee8c" />
+<img width="1536" height="1024" alt="ChatGPT Image 8 de out  de 2025, 15_06_45" src="https://github.com/user-attachments/assets/7ba66763-4001-4a49-8142-67d76126858e" />
 
-
-# VeloFit - Delivery de Comidas Saudáveis 🥗
+# VeloFit - Sistema de Gerenciamento de Academia
 
 <p align="center">
-  <strong>Sistema de delivery focado em alimentação saudável e bem-estar</strong>
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
 </p>
 
 ## 📋 Sobre o Projeto
 
-VeloFit é uma API REST desenvolvida com NestJS para um sistema de delivery especializado em comidas saudáveis. A plataforma permite o gerenciamento completo de usuários, cardápio de produtos saudáveis organizados por categorias, e controle de pedidos/serviços.
-
-## 🎯 Funcionalidades
-
-- 👤 Cadastro e gerenciamento de usuários
-- 🍱 Catálogo de produtos organizados por categorias
-- 📦 Sistema de pedidos com planos de assinatura
-- 🏷️ Categorização de produtos (refeições, lanches, sucos, etc.)
-- 🔐 Autenticação e autorização de usuários
-- 💳 Controle de mensalidades e frequência de entrega
+VeloFit é uma API REST desenvolvida com NestJS para gerenciamento completo de academias, permitindo o controle de usuários, serviços oferecidos e categorias de atividades físicas.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -34,32 +24,32 @@ O projeto segue a arquitetura modular do NestJS, dividido em:
 
 ### Módulos Principais
 
-- **Usuario** - Gerenciamento de clientes cadastrados
-- **Servico** - Controle de pedidos e planos de assinatura
-- **Categoria** - Categorização dos produtos do cardápio
+- **Usuario** - Gerenciamento de usuários cadastrados
+- **Servico** - Controle de serviços/planos oferecidos
+- **Categoria** - Categorização dos serviços
 - **Auth** - Autenticação e autorização
 
 ### Estrutura de Entidades
 
-#### Usuario (Cliente)
+#### Usuario
 - ID (gerado automaticamente)
-- Nome completo
-- Foto de perfil
-- Email (único)
-- Senha (criptografada, mínimo 8 caracteres)
-- Relacionamento: 1:N com Serviços/Pedidos
+- Nome
+- Foto
+- Email (usuário - único)
+- Senha (mínimo 8 caracteres)
+- Relacionamento: 1:N com Serviços
 
 #### Categoria
 - ID (gerado automaticamente)
-- Nome da Categoria (ex: Refeições Completas, Lanches Fit, Sucos Detox, Sobremesas Saudáveis)
-- Relacionamento: 1:N com Serviços/Produtos
+- Nome da Categoria
+- Relacionamento: 1:N com Serviços
 
-#### Servico (Pedido/Assinatura)
+#### Servico
 - ID (gerado automaticamente)
 - Valor da Mensalidade
-- Frequência de entrega (vezes por semana)
-- Data de Matrícula/Início
-- Modalidade (tipo de plano ou produto)
+- Frequência
+- Data de Matrícula
+- Modalidade
 - Relacionamentos: N:1 com Usuario e Categoria
 
 ## 🔧 Configuração do Ambiente
@@ -91,8 +81,8 @@ TypeOrmModule.forRoot({
   type: 'mysql',
   host: 'localhost',
   port: 3306,
-  username: 'seu_usuario',
-  password: 'sua_senha',
+  username: 'root',      // Seu usuário
+  password: 'root',      // Sua senha
   database: 'db_veloFit',
   // ...
 })
@@ -114,14 +104,14 @@ A aplicação estará disponível em: `http://localhost:4000`
 
 ## 📡 Endpoints da API
 
-### 👤 Usuários (Clientes)
-- `GET /usuarios` - Lista todos os clientes
-- `GET /usuarios/:id` - Busca cliente por ID
-- `GET /usuarios/nome/:nome` - Busca clientes por nome
-- `POST /usuarios` - Cadastra novo cliente
-- `PUT /usuarios` - Atualiza dados do cliente
+### Usuários
+- `GET /usuarios` - Lista todos os usuários
+- `GET /usuarios/:id` - Busca usuário por ID
+- `GET /usuarios/nome/:nome` - Busca usuários por nome
+- `POST /usuarios` - Cria novo usuário
+- `PUT /usuarios` - Atualiza usuário
 
-### 🏷️ Categorias de Produtos
+### Categorias
 - `GET /categorias` - Lista todas as categorias
 - `GET /categorias/:id` - Busca categoria por ID
 - `GET /categorias/nome/:nome` - Busca categorias por nome
@@ -129,13 +119,13 @@ A aplicação estará disponível em: `http://localhost:4000`
 - `PUT /categorias/atualizar` - Atualiza categoria
 - `DELETE /categorias/:id` - Remove categoria
 
-### 📦 Serviços/Pedidos
-- `GET /servicos` - Lista todos os pedidos/assinaturas
-- `GET /servicos/:id` - Busca pedido por ID
-- `GET /servicos/modalidade/:modalidade` - Busca por modalidade/tipo de plano
-- `POST /servicos` - Cria novo pedido/assinatura
-- `PUT /servicos` - Atualiza pedido
-- `DELETE /servicos/:id` - Cancela pedido/assinatura
+### Serviços
+- `GET /servicos` - Lista todos os serviços
+- `GET /servicos/:id` - Busca serviço por ID
+- `GET /servicos/modalidade/:modalidade` - Busca por modalidade
+- `POST /servicos` - Cria novo serviço
+- `PUT /servicos` - Atualiza serviço
+- `DELETE /servicos/:id` - Remove serviço
 
 ## 🧪 Testes
 
@@ -152,58 +142,20 @@ npm run test:cov
 
 ## 🔒 Recursos de Segurança
 
-- ✅ Validação de dados com Class Validator
-- ✅ CORS habilitado para integração frontend
-- ✅ Email único por usuário
-- ✅ Senhas com requisito mínimo de 8 caracteres
-- ✅ Timezone configurado para Brasil (UTC-3)
-- ✅ Deleção em cascata para manter integridade dos dados
-
-## 💡 Casos de Uso
-
-### Para Clientes:
-- Cadastro e gerenciamento de perfil
-- Navegação por categorias de alimentos
-- Assinatura de planos de entrega
-- Escolha de frequência de entregas
-- Acompanhamento de pedidos
-
-### Para Administradores:
-- Gestão completa de produtos e categorias
-- Controle de assinaturas ativas
-- Gerenciamento de clientes
-- Acompanhamento de receitas
-
-## 🎨 Exemplos de Categorias
-
-- 🍱 **Refeições Completas** - Pratos balanceados e nutritivos
-- 🥗 **Saladas** - Opções frescas e variadas
-- 🥤 **Sucos Detox** - Bebidas naturais e saudáveis
-- 🍰 **Sobremesas Fit** - Doces sem culpa
-- 🥪 **Lanches Saudáveis** - Opções práticas para o dia a dia
+- Validação de dados com Class Validator
+- CORS habilitado
+- Validação de email único
+- Senhas com requisito mínimo de 8 caracteres
+- Timezone configurado para UTC-3 (Brasil)
 
 ## 📦 Deploy
 
-### Deploy Manual
-1. Configure variáveis de ambiente
-2. Use PM2 para gerenciamento de processos
-3. Configure Nginx como proxy reverso
-4. Implemente certificado SSL/HTTPS
+Para deploy em produção, recomenda-se:
 
-### Deploy com Mau (Plataforma oficial NestJS)
-```bash
-npm install -g @nestjs/mau
-mau deploy
-```
-
-## 🛣️ Roadmap Futuro
-
-- [ ] Sistema de avaliações e comentários
-- [ ] Integração com gateway de pagamento
-- [ ] Sistema de cupons e promoções
-- [ ] Rastreamento de entregas em tempo real
-- [ ] Calculadora nutricional
-- [ ] Recomendações personalizadas baseadas em preferências
+1. Configurar variáveis de ambiente
+2. Usar ferramenta de gerenciamento de processos (PM2)
+3. Configurar proxy reverso (Nginx)
+4. Implementar HTTPS
 
 ## 📚 Recursos Adicionais
 
@@ -211,16 +163,16 @@ mau deploy
 
 ## 🤝 Contribuindo
 
-Contribuições são bem-vindas! Sinta-se à vontade para:
-- Reportar bugs
-- Sugerir novas funcionalidades
-- Enviar pull requests
-- Melhorar a documentação
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull requests.
 
 ## 📄 Licença
 
 Este projeto está sob a licença MIT.
 
-<p align="center">
-  Desenvolvido com ❤️ e 🥗 usando NestJS
-</p>
+## 👥 Contato
+
+Para dúvidas e suporte, entre em contato através dos canais oficiais do projeto.
+
+---
+
+Desenvolvido com ❤️ usando NestJS
