@@ -50,14 +50,6 @@ export class ServicoService {
   }
 
   async create(servico: Servico): Promise<Servico> {
-    const categoria = servico.categoria.id;
-
-    if (categoria === 1) {
-      servico.valor_mensalidade = 100;
-    } else {
-      servico.valor_mensalidade = 120;
-    }
-
     return await this.servicoRepository.save(servico);
   }
 
